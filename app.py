@@ -3,6 +3,7 @@ Aplicación principal con arquitectura Clean Code.
 """
 
 from flask import Flask
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
@@ -26,19 +27,22 @@ class WeatherApp:
         """Crea y configura la aplicación Flask"""
         # Cargar variables de entorno
         load_dotenv()
-        
+
         # Crear aplicación Flask
         self.app = Flask(__name__)
-        
+
+        # Agregar CORS global correctamente
+        CORS(self.app, resources={r"/*": {"origins": "*"}})
+
         # Configurar aplicación
         self._configure_app()
-        
+
         # Registrar blueprints
         self._register_blueprints()
-        
+
         # Inicializar servicios
         self._initialize_services()
-        
+
         return self.app
     
     def _configure_app(self):

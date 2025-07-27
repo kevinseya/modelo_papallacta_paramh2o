@@ -130,15 +130,37 @@ class AnalysisService:
         try:
             # Buscar JSON en la respuesta
             json_text = self._extract_json_from_response(response_text)
-            
+
             if not json_text:
                 # Si no se puede extraer JSON, devolver como texto plano
                 return {"analisis_texto": response_text}, None
-            
+
             # Parsear JSON
             analysis = json.loads(json_text)
-            return analysis, None
-            
+
+            # --- FILTRAR SOLO LOS CAMPOS SOLICITADOS POR EL FRONTEND ---
+            # Obtener los analysis_types solicitados desde el último prompt generado
+            # Se asume que el método analyze_predictions tiene acceso a location_data['analysis_types']
+            # Para esto, pasamos analysis_types como argumento opcional
+            import inspect
+            frame = inspect.currentframe().f_back
+            analysis_types = None
+            if frame and 'location_data' in frame.f_locals:
+                analysis_types = frame.f_locals['location_data'].get('analysis_types', None)
+
+            from ..config.settings import AnalysisConfig
+            if analysis_types:
+                expected_keys = [AnalysisConfig.ANALYSIS_OPTIONS[a]['key'] for a in analysis_types if a in AnalysisConfig.ANALYSIS_OPTIONS]
+                filtered_analysis = {k: v for k, v in analysis.items() if k in expected_keys}
+                # Si falta algún campo solicitado, agregarlo vacío
+                for key in expected_keys:
+                    if key not in filtered_analysis:
+                        filtered_analysis[key] = ""
+                return filtered_analysis, None
+            else:
+                # Si no se especifica analysis_types, devolver todo
+                return analysis, None
+
         except json.JSONDecodeError as e:
             self.logger.warning(f"No se pudo parsear JSON de la respuesta: {str(e)}")
             return {"analisis_texto": response_text}, None
