@@ -4,6 +4,8 @@
 **/*.pyo
 **/*.pyd
 **/*.pdb
+**/__init__.py
+**/__init__.pyc
 
 # Archivos de entorno virtual
 **/venv/
@@ -15,3 +17,4 @@
 # Archivos de configuración de Visual Studio Code
 **/.vscode/
 **/.env
+
