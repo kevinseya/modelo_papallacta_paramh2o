@@ -1,5 +1,8 @@
 # API de Predicciones Meteorológicas y Análisis Agrícola
 
+![Diagrama-Arq-modelo-legislacion](https://github.com/user-attachments/assets/b757b07f-b2f9-456b-88b1-fb06dc032229)
+
+
 Esta API combina modelos de predicción meteorológica LSTM con análisis agrícola inteligente usando Google Gemini. Proporciona predicciones meteorológicas precisas y recomendaciones agrícolas personalizadas para cualquier ubicación geográfica.
 
 ## 🌟 Características Principales
