@@ -143,6 +143,7 @@ El servidor estará disponible en `http://localhost:5000`
     "latitude": -0.35,
     "longitude": -78.17,
     "include_analysis": true,
+    "steps_a_futuro": 1,
     "analysis_types": ["general", "cultivos", "riego", "alertas"]
   }
   ```
