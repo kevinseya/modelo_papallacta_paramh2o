@@ -152,6 +152,7 @@ El servidor estará disponible en `http://localhost:5000`
 - `latitude` (requerido): Latitud en decimal (-90 a 90)
 - `longitude` (requerido): Longitud en decimal (-180 a 180)
 - `include_analysis` (opcional): Incluir análisis agrícola (default: true)
+-  `steps_a_futuro` (requerido): predicción para el día solicitado (default: 1)
 - `analysis_types` (opcional): Lista de tipos de análisis específicos
 
 ### 7. Encontrar Estación Más Cercana
@@ -173,10 +174,11 @@ El servidor estará disponible en `http://localhost:5000`
 curl -X POST http://localhost:5000/predict \
   -H "Content-Type: application/json" \
   -d '{
-    "date": "2024-06-01",
+    "date": "2024-07-28",
     "latitude": -0.35,
     "longitude": -78.17,
     "include_analysis": true,
+    "steps_a_futuro": 1,
     "analysis_types": ["general", "cultivos", "riego"]
   }'
 ```
@@ -186,9 +188,10 @@ curl -X POST http://localhost:5000/predict \
 curl -X POST http://localhost:5000/predict \
   -H "Content-Type: application/json" \
   -d '{
-    "date": "2024-06-01",
+    "date": "2024-07-28",
     "latitude": -0.35,
     "longitude": -78.17,
+    "steps_a_futuro": 1,
     "include_analysis": false
   }'
 ```
